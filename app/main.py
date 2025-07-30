@@ -4,8 +4,12 @@ from app.models.movies import Movie
 from app.schemas.movie_read import MovieRead
 from app.db import get_session
 from fastapi.middleware.cors import CORSMiddleware
+from magnum import Magnum
 
 app = FastAPI()
+
+#Lambda handler
+handler = Magnum(app)
 
 # Allow access from any origin (n8n needs this)
 app.add_middleware(
