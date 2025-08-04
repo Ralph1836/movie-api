@@ -1,5 +1,7 @@
 FROM public.ecr.aws/lambda/python:3.11
 
+ENV PYTHONUNBUFFERED=1
+
 # Set working directory
 WORKDIR /var/task
 
@@ -13,4 +15,4 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Set the Lambda handler
-CMD ["main.handler"]
+ENTRYPOINT [ "python", "-m", "awslambdaric", "app.main.lambda_handler" ]

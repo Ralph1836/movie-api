@@ -4,12 +4,21 @@ from app.models.movies import Movie
 from app.schemas.movie_read import MovieRead
 from app.db import get_session
 from fastapi.middleware.cors import CORSMiddleware
-from magnum import Magnum
+from mangum import Mangum
+from aws_lambda_powertools import Logger
 
 app = FastAPI()
 
 #Lambda handler
-handler = Magnum(app)
+logger = Logger()
+handler = Mangum(app)
+handler = logger.inject_lambda_context(handler, clear_state=True)
+
+def lambda_handler(event, context):
+    logger.info(f"Lambda event: {event}")
+    response = handler(event, context)
+    logger.info(f"Lambda response: {response}")
+    return response
 
 # Allow access from any origin (n8n needs this)
 app.add_middleware(
