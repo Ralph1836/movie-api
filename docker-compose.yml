@@ -20,7 +20,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/movie_db
+      DATABASE_URL: postgresql://postgres:JO9N4IzhKVr7wYiDze8l@db-movies.cw3yi8ice1tm.us-east-1.rds.amazonaws.com:5432/movie_db
     volumes:
       - .:/app
 
